@@ -1,0 +1,4 @@
+bin/*
+obj/*
+OrderASP.csproj.user
+OrderASP.csproj
