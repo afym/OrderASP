@@ -5,8 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a05bf2238fdb4f8fbbf2af741ab72005" Name="Diagram1">
-        <EntityTypeShape EntityType="OMSDBModel.Category" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="OMSDBModel.Product" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OMSDBModel.Category" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OMSDBModel.Product" Width="1.5" PointX="3.25" PointY="1.25" IsExpanded="true" />
         <AssociationConnector Association="OMSDBModel.FK_Product_Category" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
