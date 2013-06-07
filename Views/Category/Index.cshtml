@@ -1,45 +1,54 @@
-﻿@model IEnumerable<OrderASP.Models.Category>
-
-@{
-    ViewBag.Title = "Category list";
+﻿@{
+    ViewBag.Title = "Category List";
 }
+
+@model IEnumerable<OrderASP.Models.Category>
 
 <h2>@ViewBag.Title</h2>
 
-<p>
-    <a href="@Url.Action("New", "Category")" class="btn btn-warning"><i class="icon-plus"></i>Add new category</a>
-</p>
-
-@if(TempData["New"] != null)
+@if(TempData["Message"] != null) 
 {
+    <br />
     <div class="alert alert-success">
-        @TempData["New"]
+        @TempData["Message"]
     </div>
 }
 
-<table class="table table-striped">    
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id })<span class="divider">/</span>
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id }) 
-        </td>
-    </tr>
+@if(TempData["Error"] != null) 
+{
+    <br />
+    <div class="alert alert-error">
+        @TempData["Error"]
+    </div>
 }
-</table>
+
+@if (Model.Count() > 0) 
+{
+     <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{int counter = 1;}
+            @foreach (var category in Model) {
+            <tr>
+                <td>@counter</td>
+                <td>@Html.DisplayFor(categorymodel => category.Name)</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = category.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = category.Id })
+                </td>
+            </tr>
+                counter++;
+            }
+        </tbody>
+    </table>   
+} else {
+    <br />
+    <div class="alert alert-info">There are not categories.</div>
+}

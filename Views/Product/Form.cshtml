@@ -1,0 +1,77 @@
+﻿@model OrderASP.Models.Product
+
+@{
+    var product = Model;
+    var submit = (string)ViewData["Submit"];
+    var action = (string)ViewData["Action"];
+    ViewBag.Title = action + " product";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@{Html.BeginForm(action, "Product", FormMethod.Post);}
+    @Html.Label("Name", "Name")
+    <br />
+    @Html.TextBox("Name", product.Name)
+    @Html.ValidationMessage("Name")
+    <br />
+    @Html.Label("CategoryId", "Category")
+    <br />
+    <input id="category" type="text" value="@product.Category.Name"/>
+    @Html.Hidden("CategoryId", product.CategoryId, new { @id = "CategoryId"})
+    @Html.ValidationMessage("CategoryId")
+    <br />
+    @Html.Label("Stock", "Stock")
+    <br />
+    @Html.TextBox("Stock", product.Stock)
+    @Html.ValidationMessage("Stock")
+    <br />
+    @Html.Label("Available", "Available")
+    <br />
+    @Html.CheckBox("Available")
+    <br />
+    @if (!product.Id.Equals(0))
+    {
+        @Html.Hidden("Id", product.Id)   
+    }
+    <button type="submit">@submit</button>
+    <button id="back" type="button">Back</button>
+@{Html.EndForm();}
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        $(function () {
+            $( "#category" ).autocomplete({
+                source: function( request, response ) {
+                    $.ajax({
+                        url: "/Category/Getcategories",
+                        type: "GET",
+                        data: {
+                            categoryName: request.term
+                        },
+                        success: function (data) {
+                            var categories = [];
+
+                           $.each(data, function (key, category) {
+                               categories.push({ value: category.Name, label: category.Name, id: category.Id });
+                           });
+
+                           response(categories);
+                        }
+                    });
+                },
+                minLength: 2,
+                select: function (event, ui) {
+                    $("#CategoryId").val(ui.item.id);
+                }
+            });
+        });
+
+        $("#back").click(function () {
+            window.location.href = "Index";
+        });
+
+    </script>
+}

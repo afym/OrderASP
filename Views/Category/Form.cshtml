@@ -1,0 +1,37 @@
+﻿@model OrderASP.Models.Category
+
+@{
+    var category = Model;
+    var submit = (string)ViewData["Submit"];
+    var action = (string)ViewData["Action"];
+    ViewBag.Title = action + " category";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@{Html.BeginForm(action, "Category", FormMethod.Post);}
+    @Html.Label("Name", "Name")
+    <br />
+    @Html.TextBox( "Name", category.Name)
+    @Html.ValidationMessage("Name")
+    <br />
+    @Html.Label("Description", "Description")
+    <br />
+    @Html.TextArea("Description", category.Description, new { cols = "20", rows = "15", @Style="width: 519px; height: 156px;"})
+    @Html.ValidationMessage("Description")
+    <br />
+    @if (!category.Id.Equals(0))
+    {
+        @Html.Hidden("Id", category.Id)   
+    }
+    <button type="submit">@submit</button>
+    <button id="back" type="button">Back</button>
+@{Html.EndForm();}
+
+@section Scripts{
+    <script type="text/javascript">
+        $("#back").click(function () {
+            window.location.href = "Index";
+        });
+    </script>
+}

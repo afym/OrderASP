@@ -2,3 +2,5 @@ bin/*
 obj/*
 OrderASP.csproj.user
 OrderASP.csproj
+App_Data/*
+App_Start/*
